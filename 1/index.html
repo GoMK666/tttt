@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>إدخال بيانات الموظف</title>
+</head>
+<body>
+    <h1>إدخال بيانات الموظف</h1>
+    <form id="employeeForm">
+        <label>الاسم:</label><br>
+        <input type="text" id="name" required><br>
+        <label>الإيميل:</label><br>
+        <input type="email" id="email" required><br>
+        <label>رقم الهاتف:</label><br>
+        <input type="text" id="phone" required><br>
+        <label>التقرير/الحالة:</label><br>
+        <textarea id="status" required></textarea><br>
+        <button type="submit">إرسال</button>
+    </form>
+    <p><a href="admin.html">الذهاب إلى لوحة المدير</a></p>
+
+    <script>
+        document.getElementById('employeeForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const status = document.getElementById('status').value;
+
+            // Send data to Google Docs
+            const response = await fetch('YOUR_SERVER_ENDPOINT', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, email, phone, status })
+            });
+
+            if (response.ok) {
+                console.log('Data sent successfully');
+                document.getElementById('employeeForm').reset();
+            } else {
+                console.error('Error sending data');
+            }
+        });
+    </script>
+</body>
+</html>
